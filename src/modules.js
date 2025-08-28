@@ -57,6 +57,25 @@ function normalizeFio(raw) {
     return titleCaseRu(parts.join(' '));
 }
 
+function isLikelyName(raw) {
+    if (!raw) return false;
+    const lower = String(raw).toLowerCase();
+    // Отсечём явные признаки намерений/служебных слов
+    const badNeedles = [
+        'запис', 'оформ', 'хочу', 'надо', 'пройти', 'сдела',
+        'тех', 'обслужив', 'техобсл', 'заявк', 'перво', 'то-1', 'то1', ' то ', ' на то '
+    ];
+    if (badNeedles.some(n => lower.includes(n))) return false;
+    // Нормализуем к ФИО-формату и проверим число слов
+    const normalized = normalizeFio(raw);
+    if (!normalized) return false;
+    const tokens = normalized.split(/\s+/).filter(Boolean);
+    if (tokens.length === 0 || tokens.length > 3) return false;
+    // Слова не должны быть слишком короткими
+    if (tokens.some(t => t.length < 2)) return false;
+    return true;
+}
+
 function normalizeCarBrand(raw) {
     if (!raw) return '';
     const lc = raw.toLowerCase().replace(/[^a-zа-яё0-9\s\-]/gi, ' ').replace(/\s{2,}/g, ' ').trim();
@@ -92,7 +111,9 @@ function extractName(text) {
     for (const re of patterns) {
         const m = text.match(re);
         if (m && m[1]) {
-            return normalizeFio(m[1]);
+            const candidate = m[1];
+            if (!isLikelyName(candidate)) continue;
+            return normalizeFio(candidate);
         }
     }
     return '';
@@ -108,7 +129,7 @@ function extractParams(text) {
     const phone = extractPhone(cleaned) ?? "";
     const fio = extractName(cleaned) ?? "";
     const car = extractCar(cleaned) ?? "";
-    
+
     return { cleaned, phone, fio, car };
 }
 
