@@ -38,9 +38,6 @@ theme: /
             if (missing[0] === 'ФИО') prompt = 'Укажите, пожалуйста, ваше ФИО. Например: "Меня зовут Иванов Иван".';
             if (missing[0] === 'марка автомобиля') prompt = 'Укажите марку автомобиля (например: Шкода, Toyota, ВАЗ).';
             $temp.promptText = prompt;
-        go!: /a_service_ask_missing
-
-    state: q_idle
         q: * || toState = "/q_service_collect_or_confirm"
 
     state: q_service_collect_or_confirm
