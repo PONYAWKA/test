@@ -1,9 +1,9 @@
 theme: /
     state: Start
         q!: $regex</start>
-        go!: /a_start_greeting
         script:
             $jsapi.startSession()
+        q: $regex</start> || toState = "/a_start_greeting"
         q: * $greet || toState = "/a_sm_greet"
         q: * $sm_howareyou || toState = "/q_sm_howareyou"
         q: * $sm_name || toState = "/q_sm_name"

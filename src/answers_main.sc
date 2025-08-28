@@ -15,6 +15,11 @@ theme: /
             $session.car = '';
         go!: /Start
 
+    state: a_service_ask_missing
+        a: Давайте оформим заявку на ТО. Пожалуйста, укажите недостающие данные.
+        a: Недостаёт: {{ $temp.missingText }}
+        a: {{ $temp.promptText }}
+
     state: a_hours
         a: Работаем ежедневно с 09:00 до 21:00 без выходных.
         go!: /Start
