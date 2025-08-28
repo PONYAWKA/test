@@ -49,7 +49,7 @@ theme: /
             const rawDigits = String($parseTree.text || "").replace(/\D+/g, "");
             if (rawDigits.length >= 5 && params?.phone?.length > 4 && !$session.phone) {
                 $reactions.answer("Похоже, номер в неверном формате. Укажите телефон в виде +7XXXXXXXXXX или 8XXXXXXXXXX (10–11 цифр).");
-                $reactions.transition("/q_idle");
+                $reactions.transition("/q_service_ask_missing");
                 return;
             }
             const known = [!!$session?.fio, !!$session?.phone, !!$session?.car].filter(Boolean).length;

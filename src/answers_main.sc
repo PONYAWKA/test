@@ -1,9 +1,13 @@
 theme: /
     state: a_service_confirm
+        scriptEs6:
+            $temp.outFio = $session && $session.fio ? $session.fio : '—';
+            $temp.outPhone = $session && $session.phone ? $session.phone : '—';
+            $temp.outCar = $session && $session.car ? $session.car : '—';
         a: Оформляю заявку на техобслуживание на следующие данные:
-        a: {{ $session?.fio }}
-        a: номер телефона {{ $session?.phone }}
-        a: автомобиль {{ $session?.car}}.
+        a: {{ $temp.outFio }}
+        a: номер телефона {{ $temp.outPhone }}
+        a: автомобиль {{ $temp.outCar }}.
         a: Наш сотрудник свяжется с вами и уточнит время.
         scriptEs6:
             $session.fio = '';
