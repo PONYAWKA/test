@@ -124,13 +124,74 @@ function extractCar(text) {
     return normalizeCarBrand(text);
 }
 
-function extractParams(text) {
-    const cleaned = preprocessText(text);
-    const phone = extractPhone(cleaned) ?? "";
-    const fio = extractName(cleaned) ?? "";
-    const car = extractCar(cleaned) ?? "";
 
-    return { cleaned, phone, fio, car };
+function parseInfo(input) {
+  const carBrands = [
+    "шкода", "skoda", "audi", "bmw", "мерседес", "mercedes",
+    "toyota", "honda", "kia", "ford", "nissan", "mazda",
+    "hyundai", "volkswagen", "volvo", "tesla"
+  ];
+
+  const result = { name: null, surname: null, phone: null, car: null };
+  let text = String(input);
+
+  // 1) Телефон (берём последовательность цифр, допускаем +, пробелы, скобки, дефисы)
+  const phoneMatch = text.match(/(\+?\d[\d\-\s()]{6,}\d)/);
+  if (phoneMatch) {
+    result.phone = phoneMatch[0].replace(/[^\d+]/g, "");
+    text = text.replace(phoneMatch[0], " ");
+  }
+
+  // Вспомогалка для экранирования брендов в regex
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  // 2) Поиск марки авто — Unicode-aware границы
+  for (const brand of carBrands) {
+    let matchedBrand = null;
+    let re = null;
+
+    try {
+
+      const pattern = '(^|[^\\p{L}])(' + escapeRegExp(brand) + ')(?=$|[^\\p{L}])';
+      re = new RegExp(pattern, "iu");
+      const m = text.match(re);
+      if (m) matchedBrand = m[2]; // группа с самим брендом
+    } catch (err) {
+    
+      re = new RegExp("\\b" + escapeRegExp(brand) + "\\b", "i");
+      const m2 = text.match(re);
+      if (m2) matchedBrand = m2[0];
+    }
+
+    if (matchedBrand) {
+      result.car = matchedBrand.toLowerCase();
+      // удаляем из текста найденную марку (только её, чтобы не сломать соседние слова)
+      const rem = new RegExp(escapeRegExp(matchedBrand), "iu");
+      text = text.replace(rem, " ");
+      break;
+    }
+  }
+
+  // 3) Очищаем и разбиваем на слова — вытаскиваем имя и фамилию
+  const cleaned = text
+    .replace(/меня зовут/giu, " ")
+    .replace(/[^\p{L}\s]/gu, " ") // оставляем только буквы и пробелы (Unicode-aware)
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (cleaned.length > 0) result.name = cleaned[0];
+  if (cleaned.length > 1) result.surname = cleaned[1];
+
+  return result;
+}
+
+function extractParams(text) {
+    const { name,surname, phone, car} = parseInfo(text)
+
+    return { phone, fio: `${name} ${surname}`, car };
 }
 
 export default {

@@ -33,7 +33,7 @@ theme: /
     state: Start
         q!: $regex</start>
         a: Здравствуйте! Я бот автосервиса. Помогу записаться на техобслуживание и отвечу на вопросы.
-        a: Чтобы оформить запись, напишите, например: "записаться на ТО" или укажите сразу ФИО/телефон/марку авто.
+        a: Чтобы оформить запись, напишите, например: "записаться на ТО".
         script:
             $jsapi.startSession()
         q: * $greet || a = "Здравствуйте! Чем могу помочь?"
@@ -43,7 +43,7 @@ theme: /
         q: * $hours || toState = "/a_hours"
         q: * $address || toState = "/a_address"
         q: * $services || toState = "/a_services"
-        q: * $entryService || toState = "/a_service_collect_or_confirm"
+        q: * $entryService || toState = "/a_service_ask_missing"
 
     state: a_service_ask_missing
         scriptEs6:
@@ -76,7 +76,7 @@ theme: /
             if (params?.car) $session.car = params.car;
             // Мягкая валидация телефона: если есть цифры, но нормализация не прошла — подскажем формат
             const rawDigits = String($parseTree.text || "").replace(/\D+/g, "");
-            if (rawDigits.length >= 5 && !params?.phone && !$session.phone) {
+            if (rawDigits.length >= 5 && params?.phone?.length > 4 && !$session.phone) {
                 $reactions.answer("Похоже, номер в неверном формате. Укажите телефон в виде +7XXXXXXXXXX или 8XXXXXXXXXX (10–11 цифр).");
                 $reactions.transition("/idle");
                 return;
