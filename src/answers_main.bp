@@ -1,0 +1,23 @@
+{
+  "positions" : [ {
+    "id" : "/a_service_confirm",
+    "x" : 234,
+    "y" : 3941
+  }, {
+    "id" : "/a_service_ask_missing",
+    "x" : 234,
+    "y" : 4659
+  }, {
+    "id" : "/a_hours",
+    "x" : 1646,
+    "y" : 606
+  }, {
+    "id" : "/a_address",
+    "x" : 1646,
+    "y" : 1119
+  }, {
+    "id" : "/a_services",
+    "x" : 1646,
+    "y" : 1645
+  } ]
+}

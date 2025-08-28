@@ -1,0 +1,35 @@
+{
+  "positions" : [ {
+    "id" : "/a_faq_cost",
+    "x" : 234,
+    "y" : 3248
+  }, {
+    "id" : "/a_faq_need_schedule",
+    "x" : 2370,
+    "y" : 3794
+  }, {
+    "id" : "/a_faq_complaint",
+    "x" : 2370,
+    "y" : 4842
+  }, {
+    "id" : "/a_faq_why",
+    "x" : 2370,
+    "y" : 5381
+  }, {
+    "id" : "/a_faq_noise",
+    "x" : 2370,
+    "y" : 5919
+  }, {
+    "id" : "/a_faq_discounts",
+    "x" : 2370,
+    "y" : 7588
+  }, {
+    "id" : "/a_faq_duration",
+    "x" : 2370,
+    "y" : 8101
+  }, {
+    "id" : "/a_faq_scope",
+    "x" : 2370,
+    "y" : 8620
+  } ]
+}

@@ -1,0 +1,23 @@
+{
+  "positions" : [ {
+    "id" : "/a_start_greeting",
+    "x" : 1646,
+    "y" : 2215
+  }, {
+    "id" : "/a_sm_greet",
+    "x" : 1646,
+    "y" : 2760
+  }, {
+    "id" : "/sm_react_positive",
+    "x" : 234,
+    "y" : 5971
+  }, {
+    "id" : "/sm_react_negative",
+    "x" : 234,
+    "y" : 6484
+  }, {
+    "id" : "/sm_name_done",
+    "x" : 234,
+    "y" : 6991
+  } ]
+}

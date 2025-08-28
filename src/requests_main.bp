@@ -1,0 +1,15 @@
+{
+  "positions" : [ {
+    "id" : "/Start",
+    "x" : 962,
+    "y" : 5484
+  }, {
+    "id" : "/q_service_ask_missing",
+    "x" : 1646,
+    "y" : 9131
+  }, {
+    "id" : "/q_service_collect_or_confirm",
+    "x" : 2370,
+    "y" : 9131
+  } ]
+}

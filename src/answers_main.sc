@@ -1,13 +1,9 @@
 theme: /
     state: a_service_confirm
-        scriptEs6:
-            $temp.outFio = $session?.fio || '—';
-            $temp.outPhone = $session?.phone || '—';
-            $temp.outCar = $session?.car || '—';
         a: Оформляю заявку на техобслуживание на следующие данные:
-        a: {{ $temp.outFio }}
-        a: номер телефона {{ $temp.outPhone }}
-        a: автомобиль {{ $temp.outCar }}.
+        a: {{ $session?.fio }}
+        a: номер телефона {{ $session?.phone }}
+        a: автомобиль {{ $session?.car}}.
         a: Наш сотрудник свяжется с вами и уточнит время.
         scriptEs6:
             $session.fio = '';
@@ -19,6 +15,7 @@ theme: /
         a: Давайте оформим заявку на ТО. Пожалуйста, укажите недостающие данные.
         a: Недостаёт: {{ $temp.missingText }}
         a: {{ $temp.promptText }}
+        q: * || toState = "/q_service_collect_or_confirm"
 
     state: a_hours
         a: Работаем ежедневно с 09:00 до 21:00 без выходных.

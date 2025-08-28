@@ -38,14 +38,14 @@ theme: /
             if (missing[0] === 'ФИО') prompt = 'Укажите, пожалуйста, ваше ФИО. Например: "Меня зовут Иванов Иван".';
             if (missing[0] === 'марка автомобиля') prompt = 'Укажите марку автомобиля (например: Шкода, Toyota, ВАЗ).';
             $temp.promptText = prompt;
-        q: * || toState = "/q_service_collect_or_confirm"
+        go!: /a_service_ask_missing
 
     state: q_service_collect_or_confirm
         scriptEs6:
             const params = modules.extractParams($parseTree.text || "");
-            if (params?.fio) $session.fio = params.fio;
-            if (params?.phone) $session.phone = params.phone;
-            if (params?.car) $session.car = params.car;
+            if (params?.fio && !$session.fio) $session.fio = params.fio;
+            if (params?.phone && !$session.phone) $session.phone = params.phone;
+            if (params?.car && !$session.car) $session.car = params.car;
             const rawDigits = String($parseTree.text || "").replace(/\D+/g, "");
             if (rawDigits.length >= 5 && params?.phone?.length > 4 && !$session.phone) {
                 $reactions.answer("Похоже, номер в неверном формате. Укажите телефон в виде +7XXXXXXXXXX или 8XXXXXXXXXX (10–11 цифр).");
