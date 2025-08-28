@@ -1,0 +1,51 @@
+{
+  "positions" : [ {
+    "id" : "/Start",
+    "x" : 438,
+    "y" : 415
+  }, {
+    "id" : "/q_service_provide_brand",
+    "x" : 846,
+    "y" : 295
+  }, {
+    "id" : "/q_service_provide_phone",
+    "x" : 623,
+    "y" : -51
+  }, {
+    "id" : "/q_service_provide_name",
+    "x" : 381,
+    "y" : 295
+  }, {
+    "id" : "/q_service_book_with_brand",
+    "x" : -45,
+    "y" : 270
+  }, {
+    "id" : "/q_service_book_main",
+    "x" : 430,
+    "y" : 942
+  }, {
+    "id" : "/a_service_confirm",
+    "x" : -568,
+    "y" : 56
+  }, {
+    "id" : "/a_service_save_brand",
+    "x" : -318,
+    "y" : -220
+  }, {
+    "id" : "/a_service_save_phone",
+    "x" : 294,
+    "y" : -240
+  }, {
+    "id" : "/a_service_save_name",
+    "x" : 52,
+    "y" : -307
+  }, {
+    "id" : "/a_service_ask_missing",
+    "x" : 846,
+    "y" : 719
+  }, {
+    "id" : "/a_service_collect_or_confirm",
+    "x" : 1040,
+    "y" : 927
+  } ]
+}
