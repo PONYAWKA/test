@@ -105,9 +105,10 @@ function extractCar(text) {
 
 function extractParams(text) {
     const cleaned = preprocessText(text);
-    const phone = extractPhone(cleaned);
-    const fio = extractName(cleaned);
-    const car = extractCar(cleaned);
+    const phone = extractPhone(cleaned) ?? "";
+    const fio = extractName(cleaned) ?? "";
+    const car = extractCar(cleaned) ?? "";
+    
     return { cleaned, phone, fio, car };
 }
 
