@@ -1,7 +1,7 @@
 /* eslint-disable */
 // ES6 скриптовый модуль для JAICP
 
-import BRAND_SYNONYMS  from './brands.json' with { type: 'json' };
+import BRAND_SYNONYMS from './brands.json' with { type: 'json' };
 
 function clampLength(text, maxLen) {
     if (!text || typeof text !== 'string') return '';
@@ -12,9 +12,9 @@ function preprocessText(text) {
     if (!text) return '';
     let cleaned = text
         .replace(/[\u0000-\u001F\u007F]/g, ' ')
-        .replace(/[\t\r\n]+/g, ' ') 
-        .replace(/[_*`~^<>\[\]{}|\\]/g, ' ') 
-        .replace(/\s{2,}/g, ' ') 
+        .replace(/[\t\r\n]+/g, ' ')
+        .replace(/[_*`~^<>\[\]{}|\\]/g, ' ')
+        .replace(/\s{2,}/g, ' ')
         .trim();
     cleaned = clampLength(cleaned, 250);
     return cleaned;
@@ -35,7 +35,7 @@ function normalizePhone(raw) {
         d = '7' + d;
     }
     if (d.length !== 11) return '';
-    return d; 
+    return d;
 }
 
 function titleCaseRu(text) {
@@ -66,13 +66,13 @@ function normalizeCarBrand(raw) {
         if (!Array.isArray(variants)) continue;
         for (const v of variants) {
             const needle = String(v).toLowerCase();
-            const re = new RegExp(`(^|\b)${needle}(\b|$)`, 'i');
+            // Ищем точное вхождение по границам слова
+            const re = new RegExp(`(^|\\b)${needle}(\\b|$)`, 'i');
             if (re.test(lc)) return canonical;
         }
     }
-    // Если не нашли по словарю, возьмём первое слово и приведём к Title Case
-    const fallback = lc.split(/\s+/)[0] || '';
-    return titleCaseRu(fallback);
+    // Если не нашли по словарю, не делаем агрессивных предположений
+    return '';
 }
 
 function extractPhone(text) {
