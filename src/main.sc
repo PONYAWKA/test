@@ -18,8 +18,8 @@ patterns:
 init:
     bind("preProcess", function() {
         try {
-            if (modules.preprocessText($request.text || "")) {
-                $request.text = modules.preprocessText($request.text || "");
+            if (modules.preprocessText($parseTree.text || "")) {
+                $parseTree.text = modules.preprocessText($parseTree.text || "");
             }
             if (!$session || typeof $session !== 'object') $session = {};
             if (!$session.fio) $session.fio = "";
@@ -65,16 +65,21 @@ theme: /
         a: {{ $temp.promptText }}
         q: * || toState = "/a_service_collect_or_confirm"
 
+    state: idle
+        q: * || toState = "/a_service_collect_or_confirm"
+
     state: a_service_collect_or_confirm
         scriptEs6:
-            const params = modules.extractParams($request.text || "");
+            const params = modules.extractParams($parseTree.text || "");
             if (params?.fio) $session.fio = params.fio;
             if (params?.phone) $session.phone = params.phone;
             if (params?.car) $session.car = params.car;
             // Мягкая валидация телефона: если есть цифры, но нормализация не прошла — подскажем формат
-            const rawDigits = String($request.text || "").replace(/\D+/g, "");
+            const rawDigits = String($parseTree.text || "").replace(/\D+/g, "");
             if (rawDigits.length >= 5 && !params?.phone && !$session.phone) {
                 $reactions.answer("Похоже, номер в неверном формате. Укажите телефон в виде +7XXXXXXXXXX или 8XXXXXXXXXX (10–11 цифр).");
+                $reactions.transition("/idle");
+                return;
             }
             const known = [!!$session?.fio, !!$session?.phone, !!$session?.car].filter(Boolean).length;
             if (known >= 2) {
@@ -82,6 +87,7 @@ theme: /
             } else {
                 $reactions.transition("/a_service_ask_missing");
             }
+            
     state: a_service_confirm
         scriptEs6:
             $temp.outFio = $session?.fio || '—';
