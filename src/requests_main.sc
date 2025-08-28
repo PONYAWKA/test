@@ -8,7 +8,7 @@ theme: /
         q: * $sm_howareyou || toState = "/q_sm_howareyou"
         q: * $sm_name || toState = "/q_sm_name"
         q: * $help || a = "Я могу: записать на ТО, рассказать про часы работы, адрес и услуги. Напишите: 'записаться на ТО'."
-        q: * $thanks || a = "Всегда пожалуйста!"
+        q: * $thanks || a: "Всегда пожалуйста!"
         q: * $bye || a = "До свидания! Обращайтесь."
         q: * $hours || toState = "/a_hours"
         q: * $address || toState = "/a_address"
