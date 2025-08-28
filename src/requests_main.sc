@@ -21,6 +21,7 @@ theme: /
         q: * $faq_discounts || toState = "/q_faq_discounts"
         q: * $faq_duration || toState = "/q_faq_duration"
         q: * $faq_scope || toState = "/q_faq_scope"
+        q: * $p_phone || toState = "/q_service_collect_or_confirm"
         q: * $entryService || toState = "/q_service_ask_missing"
 
     state: q_service_ask_missing
