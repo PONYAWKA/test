@@ -11,10 +11,10 @@ function clampLength(text, maxLen) {
 function preprocessText(text) {
     if (!text) return '';
     let cleaned = text
-        .replace(/[\u0000-\u001F\u007F]/g, ' ') // невидимые служебные
-        .replace(/[\t\r\n]+/g, ' ') // переводы строк и табы
-        .replace(/[_*`~^<>\[\]{}|\\]/g, ' ') // потенциально мешающие символы
-        .replace(/\s{2,}/g, ' ') // сжать пробелы
+        .replace(/[\u0000-\u001F\u007F]/g, ' ')
+        .replace(/[\t\r\n]+/g, ' ') 
+        .replace(/[_*`~^<>\[\]{}|\\]/g, ' ') 
+        .replace(/\s{2,}/g, ' ') 
         .trim();
     cleaned = clampLength(cleaned, 250);
     return cleaned;
@@ -35,7 +35,7 @@ function normalizePhone(raw) {
         d = '7' + d;
     }
     if (d.length !== 11) return '';
-    return d; // формат 79XXXXXXXXX (без +)
+    return d; 
 }
 
 function titleCaseRu(text) {
