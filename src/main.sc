@@ -60,7 +60,7 @@ theme: /
             } else {
                 $reactions.transition("/a_service_ask_missing");
             }
-        event: noMatch || toState = "Start"
+        // Убираем переход по noMatch, чтобы исключить циклическую генерацию множества ответов в одном ходе
         
     state: a_service_ask_missing
         scriptEs6:
@@ -72,7 +72,6 @@ theme: /
                 $reactions.transition("/a_service_confirm");
             }
             $temp.missingText = missing.join(', ');
-            // Подсказка по первому недостающему параметру
             var prompt = '';
             if (missing[0] === 'номер телефона') prompt = 'Укажите номер телефона в формате +7XXXXXXXXXX или 8XXXXXXXXXX.';
             if (missing[0] === 'ФИО') prompt = 'Укажите, пожалуйста, ваше ФИО. Например: "Меня зовут Иванов Иван".';
@@ -81,7 +80,8 @@ theme: /
         a: Давайте оформим заявку на ТО. Пожалуйста, укажите недостающие данные.
         a: Недостаёт: {{ $temp.missingText }}
         a: {{ $temp.promptText }}
-        go!: /q_service_catch_any
+        // Ожидаем следующий ввод пользователя без немедленного перехода
+        q: * || toState = "/q_service_catch_any"
 
     state: q_service_catch_any
         q!: *
