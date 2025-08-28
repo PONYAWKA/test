@@ -23,5 +23,3 @@ patterns:
     $sm_negative = (плохо|хреново|неоч|не очень|так себе)
     $sm_name = (как тебя зовут|ты кто|кто ты)
     $sm_introduce = (а я|меня зовут|я)
-
-    $p_phone = $regexp<(\+?\d[\d\-\s()]{6,}\d)> || converter=phoneConverter
