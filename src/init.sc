@@ -1,9 +1,6 @@
 require: modules.js
     type = scriptEs6
     name = modules
-require: converters.js
-    type = scriptEs6
-    name = converters
 require: slotfilling/slotFilling.sc
     module = sys.zb-common
 

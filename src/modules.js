@@ -77,23 +77,15 @@ function parseInfo(input) {
     return result;
 }
 
-function extractParams(text) {
+function extractParamsConverter(text) {
     const { name, surname, phone, car } = parseInfo(text)
 
     return { phone, fio: `${name} ${surname}`, car };
 }
 
-function extractParamsConverter(parseTree) {
-    const { name, surname, phone, car } = parseInfo(parseTree.text)
-    const params = { phone, fio: `${name} ${surname}`, car };
-
-    return params;
-}
-
 export default {
     extractParamsConverter,
-    preprocessText,
-    extractParams,
+    preprocessText
 };
 
 
