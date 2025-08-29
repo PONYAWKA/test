@@ -9,3 +9,7 @@ theme: /
         a: Меня зовут Вася.
         q: * $sm_introduce || toState = "/sm_name_done"
         q: * || toState = "/Start"
+
+    state: q_sm_user_intro
+        q: * $sm_introduce || toState = "/sm_name_done"
+        q: * || toState = "/sm_name_done"
