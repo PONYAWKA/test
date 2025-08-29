@@ -30,3 +30,8 @@ theme: /
     state: a_faq_scope
         a: План работ ТО можно посмотреть здесь: http://someautodealer/techservice
         go!: /Start
+
+    state: NoMatch
+        event!: noMatch
+        a: Извините, я не понял.
+        go!: /Start
