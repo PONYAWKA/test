@@ -42,7 +42,7 @@ theme: /
 
     state: q_service_collect_or_confirm
         scriptEs6:
-            const params = modules.extractParams($parseTree.text || "");
+            const params = $regexp<^.*$> || converter=extractParamsConverter;
             if (params?.fio && !$session.fio) $session.fio = params.fio;
             if (params?.phone && !$session.phone) $session.phone = params.phone;
             if (params?.car && !$session.car) $session.car = params.car;
